@@ -6,6 +6,12 @@ authors = [{ name = "ThiagoORuby", email = "trs@ic.ufal.br" }]
 readme = "README.md"
 requires-python = ">=3.12"
 
+[tool.poetry]
+packages = [
+  { include = "core", from = "." },
+  { include = "api", from = "." },
+  { include = "news_scrapper", from = "." },
+]
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -13,18 +19,19 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.group.core.dependencies]
 sqlalchemy = "^2.0.41"
-psycopg = {extras = ["binary"], version = "^3.2.9"}
+psycopg = { extras = ["binary"], version = "^3.2.9" }
 alembic = "^1.16.2"
 pydantic-settings = "^2.10.1"
 
 
 [tool.poetry.group.api.dependencies]
-fastapi = {extras = ["standard"], version = "^0.115.14"}
+fastapi = { extras = ["standard"], version = "^0.115.14" }
 
 
 [tool.poetry.group.crawler.dependencies]
 scrapy = "^2.13.2"
 pytz = "^2025.2"
+python-dateutil = "^2.9.0.post0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -33,7 +40,7 @@ pytest = "^8.4.1"
 pytest-cov = "^6.2.1"
 
 [tool.ruff]
-extend-exclude = ["migrations"]
+extend-exclude = ["migrations", "__init__.py"]
 
 [tool.ruff.lint]
 preview = true
