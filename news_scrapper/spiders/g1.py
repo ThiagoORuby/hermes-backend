@@ -18,13 +18,20 @@ class G1Spider(scrapy.Spider):
 
             link = post.css("a.feed-post-link::attr(href)").get()
 
-            yield response.follow(
-                link, self.parse_post, meta={"item": post_item}
-            )
+            if link is None:
+                yield None
+            else:
+                yield response.follow(
+                    link, self.parse_post, meta={"item": post_item}
+                )
 
     def parse_post(self, response):  # noqa: PLR6301
 
         post = response.meta["item"]
+
+        # ignore noticia de playlist
+        if "playlist" in response.url:
+            return
 
         # Ignora notícia em vídeo
         if response.css("div.vt").get():
@@ -36,6 +43,6 @@ class G1Spider(scrapy.Spider):
         post['date_published'] = response.css(
             "div.content-publication-data time::attr(datetime)"
         ).get()
-        post["type"] = response.css("h1.header-title a::text").get()
+        post["type"] = response.css("span.header-title a::text").get()
 
         yield post
