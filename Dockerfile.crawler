@@ -21,5 +21,6 @@ COPY ./pyproject.toml ./
 COPY ./poetry.lock ./
 COPY ./scrapy.cfg ./
 
+ENV POETRY_REQUESTS_TIMEOUT=300
 RUN poetry config installer.max-workers 10
-RUN poetry install --no-interaction --no-ansi --no-root --with crawler,celery,core
+RUN poetry install --no-interaction --no-ansi --no-root --without dev,api

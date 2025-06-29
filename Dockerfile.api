@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 RUN pip install poetry
 
-COPY ./api ./
+COPY ./api ./api/
 COPY ./core ./core/
 COPY ./migrations ./migrations/
 COPY ./pyproject.toml ./
@@ -14,8 +14,9 @@ COPY ./alembic.ini ./
 COPY ./entrypoint.sh ./
 RUN chmod +x ./entrypoint.sh
 
+ENV POETRY_REQUESTS_TIMEOUT=300
 RUN poetry config installer.max-workers 10
-RUN poetry install --no-interaction --no-ansi --no-root --with api,core
+RUN poetry install --no-interaction --no-ansi --no-root --without dev,crawler,celery
 
 EXPOSE 8000
 
