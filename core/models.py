@@ -23,4 +23,5 @@ class Post:
     date_published: Mapped[datetime] = mapped_column(
         sa.DateTime(timezone=True)
     )
+    source: Mapped[str]
     type: Mapped[Optional[str]]

@@ -14,3 +14,4 @@ class PostItem(scrapy.Item):
     description = scrapy.Field()
     date_published = scrapy.Field()
     type = scrapy.Field()
+    source = scrapy.Field()

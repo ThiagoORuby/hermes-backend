@@ -29,7 +29,7 @@ class G1Spider(scrapy.Spider):
 
         post = response.meta["item"]
 
-        # ignore noticia de playlist
+        # Ignora noticia de playlist
         if "playlist" in response.url:
             return
 
@@ -44,5 +44,6 @@ class G1Spider(scrapy.Spider):
             "div.content-publication-data time::attr(datetime)"
         ).get()
         post["type"] = response.css("span.header-title a::text").get()
+        post["source"] = "g1"
 
         yield post

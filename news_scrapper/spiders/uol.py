@@ -43,5 +43,6 @@ class UOLSpider(scrapy.Spider):
         post["description"] = "".join(description)
         post["date_published"] = response.css("time::attr(datetime)").get()
         post["type"] = response.css("span.kicker-item a::text").get()
+        post["source"] = "uol"
 
         yield post
