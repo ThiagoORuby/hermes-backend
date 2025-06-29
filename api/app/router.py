@@ -5,7 +5,14 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy import desc, func, select
 from sqlalchemy.orm import Session
 
-from app.schemas import FilterPost, ItemList, PostList, SourceCount, Stats, SubjectCount
+from api.app.schemas import (
+    FilterPost,
+    ItemList,
+    PostList,
+    SourceCount,
+    Stats,
+    SubjectCount,
+)
 from core.database import get_session
 from core.models import Post
 

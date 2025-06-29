@@ -4,12 +4,10 @@ from news_scrapper.items import PostItem
 
 
 class G1Spider(scrapy.Spider):
-
-    name = 'g1spider'
-    start_urls = ['https://g1.globo.com/']
+    name = "g1spider"
+    start_urls = ["https://g1.globo.com/"]
 
     def parse(self, response):  # pyright: ignore
-
         posts = response.css("*.bastian-feed-item")
 
         for post in posts:
@@ -21,12 +19,9 @@ class G1Spider(scrapy.Spider):
             if link is None:
                 yield None
             else:
-                yield response.follow(
-                    link, self.parse_post, meta={"item": post_item}
-                )
+                yield response.follow(link, self.parse_post, meta={"item": post_item})
 
     def parse_post(self, response):  # noqa: PLR6301
-
         post = response.meta["item"]
 
         # Ignora noticia de playlist
@@ -37,10 +32,10 @@ class G1Spider(scrapy.Spider):
         if response.css("div.vt").get():
             return
 
-        post['title'] = response.css("div.title h1::text").get()
-        post['url'] = response.url
-        post['description'] = response.css("div.subtitle h2::text").get()
-        post['date_published'] = response.css(
+        post["title"] = response.css("div.title h1::text").get()
+        post["url"] = response.url
+        post["description"] = response.css("div.subtitle h2::text").get()
+        post["date_published"] = response.css(
             "div.content-publication-data time::attr(datetime)"
         ).get()
         post["type"] = response.css("span.header-title a::text").get()

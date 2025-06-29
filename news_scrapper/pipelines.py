@@ -14,9 +14,7 @@ from core.models import Post
 
 
 class NewsScrapperPipeline:
-
     def process_item(self, item, spider):  # noqa: PLR6301
-
         adapter = ItemAdapter(item)
 
         field_names = adapter.field_names()
@@ -37,12 +35,10 @@ class NewsScrapperPipeline:
 
 
 class PostgresPipeline:
-
     def __init__(self):
         self.session = next(get_session())
 
     def process_item(self, item, spider):
-
         if self.session.query(Post).filter_by(url=item["url"]).first():
             print("Has already been saved")
             return item

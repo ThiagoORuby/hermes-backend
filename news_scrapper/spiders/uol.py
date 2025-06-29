@@ -4,12 +4,10 @@ from news_scrapper.items import PostItem
 
 
 class UOLSpider(scrapy.Spider):
-
-    name = 'uolspider'
-    start_urls = ['https://uol.com.br/']
+    name = "uolspider"
+    start_urls = ["https://uol.com.br/"]
 
     def parse(self, response):  # type: ignore
-
         posts = response.css("div.headlineSub__link")[:20]
         VALID_URLS = ["www.uol.com.br", "noticias.uol.com.br"]
         for post in posts:
@@ -25,7 +23,6 @@ class UOLSpider(scrapy.Spider):
                     )
 
     def parse_post(self, response):  # noqa: PLR6301
-
         post = response.meta["item"]
 
         description = (
