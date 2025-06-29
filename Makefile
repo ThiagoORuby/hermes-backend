@@ -9,5 +9,6 @@ crawl-uol:
 
 crawl-all: crawl-g1 crawl-uol
 
-
+test:
+	@pytest -s -x --cov=api --cov=core -vv
 

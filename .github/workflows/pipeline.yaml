@@ -1,0 +1,27 @@
+name: Pipeline
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      DATABASE_URL: "sqlite:///db.sqlite"
+
+  steps:
+    - name: Copiar os arquivos do repo
+    - uses: actions/checkout@v4
+
+    - name: Instalar python
+    - uses: actions/setup-python@v5
+    - with:
+        python-version: "3.12"
+
+    - name: Instalar poetry
+    - run: pipx install poetry
+
+    - name: Instalar deps
+    - run: poetry install
+
+    - name: Executar testes
+    - run: make test
