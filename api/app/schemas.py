@@ -11,10 +11,13 @@ class PostOut(BaseModel):
     )
 
     id: int
+    image_url: str
     url: str
     title: str
     description: str
     date_published: datetime
+    source: str
+    type: Optional[str] = Field(alias="subject")
 
 
 class PostList(BaseModel):
